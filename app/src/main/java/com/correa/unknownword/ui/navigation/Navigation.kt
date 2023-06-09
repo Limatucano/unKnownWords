@@ -1,5 +1,6 @@
 package com.correa.unknownword.ui.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost

@@ -18,6 +18,8 @@ fun SetQuantityScreen(
         onButtonClicked = onConfirmClicked,
         onTextChanged = {
             viewModel.onTextChanged(it)
-        }
+            viewModel.validateField(it)
+        },
+        isError = state?.isError ?: false
     )
 }

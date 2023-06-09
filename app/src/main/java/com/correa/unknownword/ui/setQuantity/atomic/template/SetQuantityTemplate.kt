@@ -13,9 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.correa.unknownword.ui.atomic.atoms.SimpleButtonAtom
 import com.correa.unknownword.ui.atomic.atoms.SimpleOutlinedTextFieldAtom
 import com.correa.unknownword.ui.setQuantity.SetQuantityState
-import com.correa.unknownword.ui.theme.ContinueButton
-import com.correa.unknownword.ui.theme.TypographyRoboto
-import com.correa.unknownword.ui.theme.setQuantityTitle
+import com.correa.unknownword.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,6 +21,7 @@ fun SetQuantityTemplate(
     state: SetQuantityState?,
     onTextChanged: (String) -> Unit,
     onButtonClicked: (Int) -> Unit,
+    isError: Boolean,
 ) {
     Scaffold(
         containerColor = Color(0xFFEDE8E3)
@@ -46,9 +45,12 @@ fun SetQuantityTemplate(
                 text = state?.quantity ?: "",
                 onValueChanged = onTextChanged,
                 isSingleLine = true,
+                hintText = setQuantityHint,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(PaddingValues(horizontal = 20.dp))
+                    .padding(PaddingValues(horizontal = 20.dp)),
+                errorMessage = setQuantityErrorMessage,
+                isError = isError,
             )
             Spacer(modifier = Modifier.height(24.dp))
         }

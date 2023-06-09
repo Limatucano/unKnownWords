@@ -15,4 +15,10 @@ class SetQuantityViewModel @Inject constructor() : ViewModel() {
     fun onTextChanged(text: String) {
         _state.value = _state.value?.copy(quantity = text)
     }
+
+    fun validateField(text: String?){
+        _state.value = _state.value?.copy(
+            isError = text?.toIntOrNull() == null || text.toInt() !in 1..5
+        )
+    }
 }
