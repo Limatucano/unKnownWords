@@ -1,11 +1,9 @@
 package com.correa.unknownword.ui.setQuantity
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
+import com.correa.unknownword.ui.setQuantity.atomic.template.SetQuantityTemplate
 
 @Composable
 fun SetQuantityScreen(
@@ -15,9 +13,11 @@ fun SetQuantityScreen(
 
     val state by viewModel.state.observeAsState()
 
-    Surface(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Text("")
-    }
+    SetQuantityTemplate(
+        state = state,
+        onButtonClicked = onConfirmClicked,
+        onTextChanged = {
+            viewModel.onTextChanged(it)
+        }
+    )
 }

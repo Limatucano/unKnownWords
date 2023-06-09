@@ -12,4 +12,7 @@ class SetQuantityViewModel @Inject constructor() : ViewModel() {
     private val _state = MutableLiveData(SetQuantityState())
     val state: LiveData<SetQuantityState> = _state
 
+    fun onTextChanged(text: String) {
+        _state.value = _state.value?.copy(quantity = text)
+    }
 }
