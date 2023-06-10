@@ -66,7 +66,7 @@ fun GameScreen(
                     modifier = Modifier.fillMaxHeight()
                 ) {
                     Text(
-                        text = "${state?.currentGroup?.round.toString().padStart(2,'0')}/$MAX_ROUND",
+                        text = "${(state?.currentGroup?.round?.plus(1)).toString().padStart(2,'0')}/$MAX_ROUND",
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxHeight()
