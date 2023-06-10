@@ -92,6 +92,13 @@ fun GameScreen(
                 )
             }
 
+            LinearProgressIndicator(
+                progress = state?.progressTimer ?: 0.0F,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+            )
+
             LazyColumn(
                 content = {
                     items(state?.words ?: listOf()) { word ->
