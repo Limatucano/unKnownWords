@@ -5,6 +5,8 @@ import com.correa.unknownword.data.repositories.LocalRepositoryImpl
 import com.correa.unknownword.domain.repositories.LocalRepository
 import com.correa.unknownword.domain.usecases.GetUnknownWordsUseCase
 import com.correa.unknownword.domain.usecases.GetUnknownWordsUseCaseImpl
+import com.correa.unknownword.domain.usecases.LoadGroupsUseCase
+import com.correa.unknownword.domain.usecases.LoadGroupsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,4 +32,7 @@ class AppModule {
     ) : GetUnknownWordsUseCase = GetUnknownWordsUseCaseImpl(
         localRepository = localRepository
     )
+
+    @Provides
+    fun provideLoadGroupsUseCase() : LoadGroupsUseCase = LoadGroupsUseCaseImpl()
 }

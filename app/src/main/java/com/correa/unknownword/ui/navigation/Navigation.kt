@@ -3,9 +3,13 @@ package com.correa.unknownword.ui.navigation
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.correa.unknownword.ui.game.GameScreen
+import com.correa.unknownword.ui.game.GameViewModel
 import com.correa.unknownword.ui.setQuantity.SetQuantityScreen
 import com.correa.unknownword.ui.setQuantity.SetQuantityViewModel
 
@@ -23,10 +27,26 @@ fun Navigation() {
             val viewModel: SetQuantityViewModel = hiltViewModel()
             SetQuantityScreen(
                 viewModel = viewModel,
-                onConfirmClicked = {
-
+                onConfirmClicked = { quantity ->
+                    navController.navigate(
+                        "${Destination.Game.route}/$quantity"
+                    )
                 }
             )
+        }
+
+        composable(
+            route = "${Destination.Game.route}/{quantity}",
+            arguments = listOf(navArgument("quantity") { type = NavType.IntType })
+        ) { backStack ->
+           val viewModel: GameViewModel = hiltViewModel()
+           GameScreen(
+               viewModel = viewModel,
+               quantity = backStack.arguments?.getInt("quantity") ?: 1,
+               onFinishClicked = {
+
+               }
+           )
         }
     }
 }

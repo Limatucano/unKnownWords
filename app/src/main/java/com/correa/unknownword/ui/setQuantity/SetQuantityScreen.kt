@@ -20,6 +20,7 @@ fun SetQuantityScreen(
             viewModel.onTextChanged(it)
             viewModel.validateField(it)
         },
-        isError = state?.isError ?: false
+        isError = state?.isError ?: false,
+        buttonIsEnabled = state?.isError == false && !state?.quantity.isNullOrBlank()
     )
 }

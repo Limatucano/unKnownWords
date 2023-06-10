@@ -14,3 +14,7 @@ val enabledColor = Color(0xFF31CD63)
 val disabledColor = Color(0xFF747475)
 val black = Color(0xFF060710)
 val gray = Color(0xFF747475)
+
+val green = Color(0xFF45C486)
+val red = Color(0xFFA40021)
+val background = Color(0xFFF4F3F6)

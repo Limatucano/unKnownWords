@@ -22,6 +22,7 @@ fun SetQuantityTemplate(
     onTextChanged: (String) -> Unit,
     onButtonClicked: (Int) -> Unit,
     isError: Boolean,
+    buttonIsEnabled: Boolean,
 ) {
     Scaffold(
         containerColor = Color(0xFFEDE8E3)
@@ -65,7 +66,7 @@ fun SetQuantityTemplate(
                 onClick = { onButtonClicked(state?.quantity?.toInt() ?: 0) },
                 text = ContinueButton,
                 textStyle = TypographyRoboto.labelLarge,
-                isEnabled = true,
+                isEnabled = buttonIsEnabled,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(60.dp)
