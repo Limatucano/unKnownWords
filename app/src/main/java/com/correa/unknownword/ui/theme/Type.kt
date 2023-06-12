@@ -27,6 +27,11 @@ val FontRoboto = FontFamily(
 )
 
 val TypographyRoboto = Typography(
+    displayLarge = TextStyle(
+        fontFamily = FontRoboto,
+        fontWeight = FontWeight.W900,
+        fontSize = 64.sp
+    ),
     titleMedium = TextStyle(
         fontFamily = FontRoboto,
         fontWeight = FontWeight.W900,

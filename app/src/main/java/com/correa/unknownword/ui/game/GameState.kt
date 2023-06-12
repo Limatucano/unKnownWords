@@ -12,4 +12,8 @@ data class GameState(
     val time: String = Constants.MAX_TIME_PER_ROUND.formatTime(),
     val progressTimer: Float = 1.00F,
     val isTimerPlaying: Boolean = false,
+    val isLoading: Boolean = false,
+    val isFinishGame: Boolean = false,
+    val isWin: Boolean = false,
+    val isEndGame: Boolean = false,
 )
