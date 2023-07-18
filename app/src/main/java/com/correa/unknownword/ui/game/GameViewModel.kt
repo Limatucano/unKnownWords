@@ -99,13 +99,12 @@ class GameViewModel @Inject constructor(
             currentGroup = getNextGroup(currentGroup),
             isFinishGame = false,
         )
-        getUnknownWords(round = getNextGroup(currentGroup)?.round ?: 0)
+        getUnknownWords(group = getNextGroup(currentGroup))
         startInitialLoading()
     }
 
     private fun getNextGroup(currentGroup: GroupEntity?): GroupEntity? {
         val currentGroupIndex = state.value?.groups?.indexOf(currentGroup) ?: 0
-
         return state.value?.groups?.getOrNull(currentGroupIndex + 1) ?: state.value?.groups?.get(0)
     }
 
@@ -130,7 +129,8 @@ class GameViewModel @Inject constructor(
             GroupEntity(
                 round = group.round,
                 name = group.name,
-                isTurn = group.isTurn
+                isTurn = group.isTurn,
+                words = group.words,
             )
         }
 
@@ -155,14 +155,16 @@ class GameViewModel @Inject constructor(
                 GroupEntity(
                     round = currentGroup.round,
                     name = currentGroup.name,
-                    isTurn = currentGroup.isTurn
+                    isTurn = currentGroup.isTurn,
+                    words = currentGroup.words,
                 )
             }
             nextGroup?.name -> {
                 GroupEntity(
                     round = nextGroup.round,
                     name = nextGroup.name,
-                    isTurn = true
+                    isTurn = true,
+                    words = nextGroup.words,
                 )
             }
             else -> {
@@ -240,15 +242,28 @@ class GameViewModel @Inject constructor(
                 groups = groups,
                 currentGroup = currentGroup
             )
-            getUnknownWords(currentGroup?.round ?: 0)
+            getUnknownWords(currentGroup)
         }
     }
 
-    private fun getUnknownWords(round: Int){
+    private fun getUnknownWords(group: GroupEntity?){
         viewModelScope.launch {
-            _state.value = state.value?.copy(
-                words = getUnknownWordsUseCase.invoke(INITIAL_WORDS - round)
+            val words = getUnknownWordsUseCase.invoke(
+                howMany = INITIAL_WORDS - (group?.round ?: 0),
+                words = group?.words ?: listOf()
             )
+            val groupsUpdated = state.value?.groups?.map {
+                it.copy(
+                    words = if(it == group) ((it.words ?: listOf<WordEntity>()) + words)  else it.words
+                )
+            }
+            groupsUpdated?.let {
+                _state.value = state.value?.copy(
+                    words = words,
+                    groups = groupsUpdated,
+                    currentGroup = groupsUpdated.firstOrNull { it.isTurn }
+                )
+            }
         }
     }
 }
